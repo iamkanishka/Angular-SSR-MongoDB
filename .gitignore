@@ -43,8 +43,11 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+<<<<<<< HEAD
 
 # Firebase
 .firebase
 *-debug.log
 .runtimeconfig.json
+=======
+>>>>>>> e92b8a36c1fad816dd55a214891b110f4f00466f
