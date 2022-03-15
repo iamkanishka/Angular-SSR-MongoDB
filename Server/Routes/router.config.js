@@ -1,6 +1,6 @@
 // Importing Routes
-const UserRoutes = require('./user.routes')
-const AdminRoutes = require('./admin.routes')
+const AnimalRoutes = require('./animal.routes')
+
 
 /**
  * retruns the subRoutes
@@ -8,6 +8,6 @@ const AdminRoutes = require('./admin.routes')
  * @returns return the SubRoutes 
  */
 exports.routerConfig = async (app) => {
-  await  UserRoutes.userRoutes(app)
-  await AdminRoutes.adminRoutes(app)
+  await  AnimalRoutes.userRoutes(app)
+
 }
