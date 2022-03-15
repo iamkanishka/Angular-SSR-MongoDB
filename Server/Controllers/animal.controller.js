@@ -6,22 +6,18 @@ const animalModel = require("../Models/animal.model");
 
 /**
  * 
- * @param {{email,userId}} req Request has the incomming Data of User's email and password  
+ * @param {{email,animalId}} req Request has the incomming Data of User's email and password  
  * @param {{Status, message, token}} res Response provides for corresponding  request
  * @returns Returns with User's token, with status and message for the signin
  */
  exports.getAnimals= async (req, res) => {
 
-    const { animal} = req.body
 
     try {
 
 
-        const user = await animalModel.findOne({
-            animalname: animal,
-       
-        }).select('-password')
-        if (!user) {
+        const animal = await animalModel.find()
+        if (!animal) {
             return res.send({
                 status: 3101,
                 message: "Animal dosen't Exist"
@@ -29,7 +25,7 @@ const animalModel = require("../Models/animal.model");
         } else {
             res.status(200).json({
 
-                data: user,
+                data: animal,
                 message: "Animal Details"
             });
         }
@@ -45,8 +41,8 @@ const animalModel = require("../Models/animal.model");
 
 /**
  * 
- * @param {{email,userId}} req Request has the incomming Data of User's email and password  
- * @param {{Status, message, token}} res Response provides for corresponding  request
+ * @param {{animalId}} req Request has the incomming Data of User's email and password  
+ * @param {{Status, message, Data}} res Response provides for corresponding  request
  * @returns Returns with User's token, with status and message for the signin
  */
 exports.getAnimalDetailsbyName = async (req, res) => {
@@ -56,11 +52,11 @@ exports.getAnimalDetailsbyName = async (req, res) => {
     try {
 
 
-        const user = await animalModel.findOne({
+        const animal = await animalModel.findOne({
             animalname: animal,
        
         }).select('-password')
-        if (!user) {
+        if (!animal) {
             return res.send({
                 status: 3101,
                 message: "Animal dosen't Exist"
@@ -68,7 +64,7 @@ exports.getAnimalDetailsbyName = async (req, res) => {
         } else {
             res.status(200).json({
 
-                data: user,
+                data: animal,
                 message: "Animal Details"
             });
         }
