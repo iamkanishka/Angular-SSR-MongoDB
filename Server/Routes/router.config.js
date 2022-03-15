@@ -8,6 +8,6 @@ const AnimalRoutes = require('./animal.routes')
  * @returns return the SubRoutes 
  */
 exports.routerConfig = async (app) => {
-  await  AnimalRoutes.userRoutes(app)
+  await  AnimalRoutes.animalRoutes(app)
 
 }
