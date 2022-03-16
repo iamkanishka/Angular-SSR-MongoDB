@@ -1,12 +1,15 @@
+import { HttpClient } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SeoserviceService {
 
-  constructor(private meta: Meta, private titleservice: Title) {
+  constructor(private meta: Meta, private titleservice: Title, private http: HttpClient) {
 
   }
 
@@ -18,22 +21,28 @@ export class SeoserviceService {
       slug: '',
       ...tags
     }
-this.titleservice.setTitle(tags.title)
-this.meta.updateTag({name:'twitter:card',content:'summary'});
-this.meta.updateTag({name:'twitter:site',content:'@angular/kanishka'});
-this.meta.updateTag({name:'twitter:title',content:tags.title});
-this.meta.updateTag({name:'twitter:description',content:tags.description});
-this.meta.updateTag({name:'twitter:image',content:tags.image});
- 
-
-this.meta.updateTag({name:'og:card',content:'article'});
-this.meta.updateTag({name:'og:site',content:'AngularFirebase/kanishka'});
-this.meta.updateTag({name:'og:title',content:tags.title});
-this.meta.updateTag({name:'og:description',content:tags.description});
-this.meta.updateTag({name:'og:image',content:tags.image});
-this.meta.updateTag({name:'og:url',content:'https://www.linkedin.com/in/kanishka-naik-6b5180191/'});
+    this.titleservice.setTitle(tags.title)
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ name: 'twitter:site', content: '@angular/kanishka' });
+    this.meta.updateTag({ name: 'twitter:title', content: tags.title });
+    this.meta.updateTag({ name: 'twitter:description', content: tags.description });
+    this.meta.updateTag({ name: 'twitter:image', content: tags.image });
 
 
+    this.meta.updateTag({ name: 'og:card', content: 'article' });
+    this.meta.updateTag({ name: 'og:site', content: 'AngularFirebase/kanishka' });
+    this.meta.updateTag({ name: 'og:title', content: tags.title });
+    this.meta.updateTag({ name: 'og:description', content: tags.description });
+    this.meta.updateTag({ name: 'og:image', content: tags.image });
+    this.meta.updateTag({ name: 'og:url', content: 'https://www.linkedin.com/in/kanishka-naik-6b5180191/' });
 
+
+
+  }
+
+  getanimal(animalName:string){
+     return this.http.post<any>('http://localhost:5000/api/animal/getAnimalDetailsbyName',{
+      "animalname": String(animalName)
+  })
   }
 }

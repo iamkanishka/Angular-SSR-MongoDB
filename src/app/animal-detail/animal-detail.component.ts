@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-//import {Firestore,collection,collectionData} from '@angular/fire/firestore';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+
 import {SeoserviceService} from '../seoservice.service'
 import {tap,startWith} from 'rxjs/operators'
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-animal-detail',
@@ -17,18 +17,18 @@ animal$:any
 
   
   constructor(
-    private afs:AngularFirestoreDocument,
+    private http:HttpClient,
     private seo:SeoserviceService,
     private route:ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('name')?.toLocaleLowerCase();
-    this.animal$=this.afs.collection('animals').doc(`${id}`).valueChanges().pipe(tap((animal:any)=>{
+    const animal = this.route.snapshot.paramMap.get('name')?.toLocaleLowerCase();
+    this.animal$=this.seo.getanimal(String(animal)).pipe(tap((animal:any)=>{
       this.seo.generateTags({
-        title:animal.name,
-        description:animal.bio,
-        image:animal.imageURL
+        title:animal.data.animalname,
+        description:animal.data.bio,
+        image:animal.data.imageURL
       })
     }))
   }
