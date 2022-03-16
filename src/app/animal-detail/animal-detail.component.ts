@@ -25,6 +25,7 @@ animal$:any
   ngOnInit(): void {
     const animal = this.route.snapshot.paramMap.get('name')?.toLocaleLowerCase();
     this.animal$=this.seo.getanimal(String(animal)).pipe(tap((animal:any)=>{
+      console.log(animal)
       this.seo.generateTags({
         title:animal.data.animalname,
         description:animal.data.bio,
